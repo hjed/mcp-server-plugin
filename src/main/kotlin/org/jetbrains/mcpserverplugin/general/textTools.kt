@@ -274,7 +274,7 @@ class ReplaceTextByPathTool : AbstractMcpTool<ReplaceTextByPathToolArgs>(Replace
     override val description: String = """
         Replaces the entire content of a specified file with new text, if the file is within the project.
         Use this tool to modify file contents using a path relative to the project root.
-        Requires parameters:
+        Requires three parameters:
         - pathInProject: The path to the target file, relative to project root
         - text: The new content to write to the file
         - projectName: The name of the project containing the file. Use list_projects tool to get available project names.

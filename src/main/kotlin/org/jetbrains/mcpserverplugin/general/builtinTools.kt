@@ -119,7 +119,7 @@ class GetRunConfigurationsTool : org.jetbrains.mcpserverplugin.AbstractMcpTool<P
     override val description: String = """
         Returns a list of run configurations for the current project.
         Use this tool to query the list of available run configurations in current project.
-        Requires parameter:
+        Requires one parameter:
         - projectName: The name of the project to get configurations from. Use list_projects tool to get available project names.
         Then you shall to call "run_configuration" tool if you find anything relevant.
         Returns JSON list of run configuration names. Empty list if no run configurations found.
@@ -301,7 +301,7 @@ class ListAvailableActionsTool : org.jetbrains.mcpserverplugin.AbstractMcpTool<P
     override val name: String = "list_available_actions"
     override val description: String = """
         Lists all available actions in JetBrains IDE editor.
-        Requires parameter:
+        Requires one parameter:
         - projectName: The name of the project context. Use list_projects tool to get available project names.
         Returns a JSON array of objects containing action information:
         - id: The action ID
@@ -374,7 +374,7 @@ class GetProgressIndicatorsTool : org.jetbrains.mcpserverplugin.AbstractMcpTool<
     override val name: String = "get_progress_indicators"
     override val description: String = """
         Retrieves the status of all running progress indicators in JetBrains IDE editor.
-        Requires parameter:
+        Requires one parameter:
         - projectName: The name of the project context. Use list_projects tool to get available project names.
         Returns a JSON array of objects containing progress information:
         - text: The progress text/description
@@ -424,7 +424,7 @@ class WaitTool : AbstractMcpTool<WaitArgs>(WaitArgs.serializer()) {
     }
 }
 
-class ListProjectsTool : org.jetbrains.mcpserverplugin.AbstractMcpTool<NoArgs>() {
+class ListProjectsTool : org.jetbrains.mcpserverplugin.AbstractMcpTool<NoArgs>(NoArgs.serializer()) {
     override val name: String = "list_projects"
     override val description: String = """
         Returns a list of all available projects.

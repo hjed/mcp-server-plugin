@@ -60,7 +60,7 @@ class GetBreakpointsTool : AbstractMcpTool<ProjectOnly>(ProjectOnly.serializer()
     override val description: String = """
         Retrieves a list of all line breakpoints currently set in the project.
         Use this tool to get information about existing debugger breakpoints.
-        Requires parameter:
+        Requires one parameter:
         - projectName: The name of the project to get breakpoints from. Use list_projects tool to get available project names.
         Returns a JSON-formatted list of breakpoints, where each entry contains:
         - path: The absolute file path where the breakpoint is set

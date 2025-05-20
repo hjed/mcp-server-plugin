@@ -63,7 +63,6 @@ class MCPService : RestService() {
 
     override fun execute(urlDecoder: QueryStringDecoder, request: FullHttpRequest, context: ChannelHandlerContext): String? {
         val path = urlDecoder.path().split(serviceName).last().trimStart('/')
-
         val tools = McpToolManager.Companion.getAllTools()
 
         when (path) {
@@ -179,6 +178,10 @@ class MCPService : RestService() {
 @Serializable
 object NoArgs
 
+/**
+ * Interface for tools that need to be aware of and operate within a specific project context.
+ * Implementing classes should provide the project name to identify which project they are working with.
+ */
 interface ProjectAware {
     val projectName: String
 }
@@ -209,7 +212,7 @@ data class JsonSchemaObject(
 
 @Serializable
 data class PropertySchema(
-    val type: String,
+    val type: String
 )
 
 

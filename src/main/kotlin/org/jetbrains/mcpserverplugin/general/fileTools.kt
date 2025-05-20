@@ -34,7 +34,7 @@ class ListDirectoryTreeInFolderTool : AbstractMcpTool<ListDirectoryTreeInFolderA
     override val description: String = """
         Provides a hierarchical tree view of the project directory structure starting from the specified folder.
         Use this tool to efficiently explore complex project structures in a nested format.
-        Requires parameters:
+        Requires three parameters:
         - pathInProject: Path to the folder to list (use "/" for project root)
         - maxDepth: Maximum recursion depth (default: 5)
         - projectName: The name of the project to explore. Use list_projects tool to get available project names.
@@ -116,7 +116,7 @@ class ListFilesInFolderTool : AbstractMcpTool<ListFilesInFolderArgs>(ListFilesIn
     override val description: String = """
         Lists all files and directories in the specified project folder.
         Use this tool to explore project structure and get contents of any directory.
-        Requires parameters:
+        Requires two parameters:
         - pathInProject: Path to the folder to list (use "/" for project root)
         - projectName: The name of the project to explore. Use list_projects tool to get available project names.
         Returns a JSON-formatted list of entries, where each entry contains:
@@ -161,7 +161,7 @@ class FindFilesByNameSubstring : AbstractMcpTool<Query>(Query.serializer()) {
     override val description: String = """
         Searches for all files in the project whose names contain the specified substring (case-insensitive).
         Use this tool to locate files when you know part of the filename.
-        Requires parameters:
+        Requires two parameters:
         - nameSubstring: The search term to find in filenames
         - projectName: The name of the project to search in. Use list_projects tool to get available project names.
         Returns a JSON array of objects containing file information:
@@ -211,7 +211,7 @@ class CreateNewFileWithTextTool : AbstractMcpTool<CreateNewFileWithTextArgs>(Cre
     override val description: String = """
         Creates a new file at the specified path within the project directory and populates it with the provided text.
         Use this tool to generate new files in your project structure.
-        Requires parameters:
+        Requires three parameters:
         - pathInProject: The relative path where the file should be created
         - text: The content to write into the new file
         - projectName: The name of the project to create file in. Use list_projects tool to get available project names.
@@ -248,7 +248,7 @@ class OpenFileInEditorTool : AbstractMcpTool<OpenFileInEditorArgs>(OpenFileInEdi
     override val name: String = "open_file_in_editor"
     override val description: String = """
         Opens the specified file in the JetBrains IDE editor.
-        Requires parameters:
+        Requires two parameters:
         - filePath: The path of file to open (can be absolute or relative to the project root)
         - projectName: The name of the project containing the file. Use list_projects tool to get available project names.
         Returns one of two possible responses:
@@ -281,7 +281,7 @@ class GetAllOpenFilePathsTool : AbstractMcpTool<ProjectOnly>(ProjectOnly.seriali
     override val description: String = """
         Lists full path relative paths to project root of all currently open files in the JetBrains IDE editor.
         Returns a list of file paths that are currently open in editor tabs.
-        Requires parameter:
+        Requires one parameter:
         - projectName: The name of the project to get open file paths from. Use list_projects tool to get available project names.
         Returns an empty list if no files are open.
 

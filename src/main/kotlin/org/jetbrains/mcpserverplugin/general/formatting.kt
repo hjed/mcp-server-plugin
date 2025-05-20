@@ -56,7 +56,7 @@ class ReformatFileTool : AbstractMcpTool<PathInProject>(PathInProject.serializer
     override val description: String = """
         Reformats a specified file in the JetBrains IDE.
         Use this tool to apply code formatting rules to a file identified by its path.
-        Requires parameters:
+        Requires two parameters:
         - pathInProject: The file location relative to the project root
         - projectName: The name of the project containing the file. Use list_projects tool to get available project names.
         
