@@ -2,6 +2,7 @@ package org.jetbrains.mcpserverplugin
 
 import com.intellij.openapi.extensions.ExtensionPointName
 import org.jetbrains.mcpserverplugin.general.CreateNewFileWithTextTool
+import org.jetbrains.mcpserverplugin.general.CreateRunConfigurationTool
 import org.jetbrains.mcpserverplugin.general.ExecuteActionByIdTool
 import org.jetbrains.mcpserverplugin.general.FindFilesByNameSubstring
 import org.jetbrains.mcpserverplugin.general.GetAllOpenFilePathsTool
@@ -17,6 +18,7 @@ import org.jetbrains.mcpserverplugin.general.GetProjectModulesTool
 import org.jetbrains.mcpserverplugin.general.GetRunConfigurationsTool
 import org.jetbrains.mcpserverplugin.general.GetSelectedTextTool
 import org.jetbrains.mcpserverplugin.general.ListAvailableActionsTool
+import org.jetbrains.mcpserverplugin.general.ListConfigurationTypesTool
 import org.jetbrains.mcpserverplugin.general.ListDirectoryTreeInFolderTool
 import org.jetbrains.mcpserverplugin.general.ListFilesInFolderTool
 import org.jetbrains.mcpserverplugin.general.OpenFileInEditorTool
@@ -64,6 +66,8 @@ class McpToolManager {
             SearchInFilesContentTool(),
             RunConfigurationTool(),
             GetRunConfigurationsTool(),
+            CreateRunConfigurationTool(),
+            ListConfigurationTypesTool(),
             GetProjectModulesTool(),
             GetProjectDependenciesTool(),
             GetAllOpenFileTextsTool(),

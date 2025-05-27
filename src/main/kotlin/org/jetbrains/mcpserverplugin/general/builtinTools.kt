@@ -2,6 +2,11 @@ package org.jetbrains.mcpserverplugin.general
 
 import com.intellij.execution.ExecutionException
 import com.intellij.execution.RunManager
+import com.intellij.execution.application.ApplicationConfiguration
+import com.intellij.execution.application.ApplicationConfigurationType
+import com.intellij.execution.configurations.ConfigurationFactory
+import com.intellij.execution.configurations.ConfigurationType
+import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.process.ProcessAdapter
 import com.intellij.execution.process.ProcessEvent
@@ -438,5 +443,188 @@ class ListProjectsTool : org.jetbrains.mcpserverplugin.AbstractMcpTool<NoArgs>(N
             """{"name": "${openProject.name}", "baseDir": "${openProject.basePath ?: ""}"}"""
         }
         return Response(projects.joinToString(",\n", prefix = "[", postfix = "]"))
+    }
+}
+
+@Serializable
+data class CreateRunConfigurationArgs(
+    val configurationName: String,
+    val configurationType: String,
+    val configurationSettings: Map<String, String> = emptyMap(),
+    override val projectName: String
+) : ProjectAware
+
+class CreateRunConfigurationTool : AbstractMcpTool<CreateRunConfigurationArgs>(CreateRunConfigurationArgs.serializer()) {
+    override val name: String = "create_run_configuration"
+    override val description: String = """
+        Creates a new run configuration in the specified project.
+        Requires four parameters:
+        - configurationName: The name for the new run configuration
+        - configurationType: The type of configuration to create (e.g., "Application", "Gradle", "Shell Script")
+        - configurationSettings: A map of configuration-specific settings (optional)
+        - projectName: The name of the project to create the configuration in. Use list_projects tool to get available project names.
+
+        Common configuration types:
+        - "Application": Java application run configuration
+        - "Gradle": Gradle task run configuration
+        - "Shell Script": Shell script run configuration
+
+        Configuration settings depend on the type:
+        - Application: mainClass, programParameters, workingDirectory, vmOptions
+        - Gradle: tasks, arguments, workingDirectory
+        - Shell Script: scriptPath, scriptOptions, workingDirectory
+
+        Returns "ok" if the configuration was successfully created.
+        Returns error message if the configuration type is not supported or creation fails.
+    """
+
+    override fun handle(args: CreateRunConfigurationArgs): Response {
+        val project = args.getProject() ?: return Response(error = "Project not found")
+        val runManager = RunManager.getInstance(project)
+
+        try {
+            // Find the configuration type
+            val configurationType = findConfigurationType(args.configurationType)
+                ?: return Response(error = "Configuration type '${args.configurationType}' not found or not supported")
+
+            // Get the configuration factory
+            val factory = configurationType.configurationFactories.firstOrNull()
+                ?: return Response(error = "No factory found for configuration type '${args.configurationType}'")
+
+            // Create the configuration
+            val settings = runManager.createConfiguration(args.configurationName, factory)
+            val configuration = settings.configuration
+
+            // Apply configuration-specific settings
+            val result = applyConfigurationSettings(configuration, args.configurationSettings, args.configurationType)
+            if (result != null) {
+                return Response(error = result)
+            }
+
+            // Add the configuration to the run manager
+            runManager.addConfiguration(settings)
+
+            return Response("ok")
+        } catch (e: Exception) {
+            return Response(error = "Failed to create run configuration: ${e.message}")
+        }
+    }
+
+    private fun findConfigurationType(typeName: String): ConfigurationType? {
+        return ConfigurationType.CONFIGURATION_TYPE_EP.extensionList.find { configurationType ->
+            configurationType.displayName.equals(typeName, ignoreCase = true) ||
+            configurationType.id.equals(typeName, ignoreCase = true)
+        }
+    }
+
+    private fun applyConfigurationSettings(
+        configuration: RunConfiguration,
+        settings: Map<String, String>,
+        typeName: String
+    ): String? {
+        return try {
+            when (typeName.lowercase()) {
+                "application" -> applyApplicationSettings(configuration, settings)
+                "gradle" -> applyGradleSettings(configuration, settings)
+                "shell script" -> applyShellScriptSettings(configuration, settings)
+                else -> null // No specific settings to apply for unknown types
+            }
+        } catch (e: Exception) {
+            "Failed to apply settings: ${e.message}"
+        }
+    }
+
+    private fun applyApplicationSettings(configuration: RunConfiguration, settings: Map<String, String>): String? {
+        if (configuration !is ApplicationConfiguration) {
+            return "Configuration is not an Application configuration"
+        }
+
+        settings["mainClass"]?.let { configuration.mainClassName = it }
+        settings["programParameters"]?.let { configuration.programParameters = it }
+        settings["workingDirectory"]?.let { configuration.workingDirectory = it }
+        settings["vmOptions"]?.let { configuration.vmParameters = it }
+
+        return null
+    }
+
+    private fun applyGradleSettings(configuration: RunConfiguration, settings: Map<String, String>): String? {
+        // For Gradle configurations, we need to use reflection or find the appropriate class
+        // This is a simplified implementation
+        try {
+            val tasksField = configuration.javaClass.getDeclaredField("mySettings")
+            tasksField.isAccessible = true
+            val gradleSettings = tasksField.get(configuration)
+
+            settings["tasks"]?.let { tasks ->
+                val taskNamesField = gradleSettings.javaClass.getDeclaredField("taskNames")
+                taskNamesField.isAccessible = true
+                taskNamesField.set(gradleSettings, tasks.split(" ").toMutableList())
+            }
+
+            settings["arguments"]?.let { args ->
+                val scriptParametersField = gradleSettings.javaClass.getDeclaredField("scriptParameters")
+                scriptParametersField.isAccessible = true
+                scriptParametersField.set(gradleSettings, args)
+            }
+
+            settings["workingDirectory"]?.let { workDir ->
+                val externalProjectPathField = gradleSettings.javaClass.getDeclaredField("externalProjectPath")
+                externalProjectPathField.isAccessible = true
+                externalProjectPathField.set(gradleSettings, workDir)
+            }
+        } catch (e: Exception) {
+            return "Failed to configure Gradle settings: ${e.message}"
+        }
+
+        return null
+    }
+
+    private fun applyShellScriptSettings(configuration: RunConfiguration, settings: Map<String, String>): String? {
+        // For Shell Script configurations, we need to use reflection or find the appropriate class
+        // This is a simplified implementation
+        try {
+            settings["scriptPath"]?.let { scriptPath ->
+                val scriptPathField = configuration.javaClass.getDeclaredField("scriptPath")
+                scriptPathField.isAccessible = true
+                scriptPathField.set(configuration, scriptPath)
+            }
+
+            settings["scriptOptions"]?.let { options ->
+                val scriptOptionsField = configuration.javaClass.getDeclaredField("scriptOptions")
+                scriptOptionsField.isAccessible = true
+                scriptOptionsField.set(configuration, options)
+            }
+
+            settings["workingDirectory"]?.let { workDir ->
+                val workingDirectoryField = configuration.javaClass.getDeclaredField("workingDirectory")
+                workingDirectoryField.isAccessible = true
+                workingDirectoryField.set(configuration, workDir)
+            }
+        } catch (e: Exception) {
+            return "Failed to configure Shell Script settings: ${e.message}"
+        }
+
+        return null
+    }
+}
+
+class ListConfigurationTypesTool : AbstractMcpTool<ProjectOnly>(ProjectOnly.serializer()) {
+    override val name: String = "list_configuration_types"
+    override val description: String = """
+        Lists all available run configuration types in the IDE.
+        Requires one parameter:
+        - projectName: The name of the project context. Use list_projects tool to get available project names.
+        Returns a JSON array of objects containing configuration type information:
+        - id: The configuration type ID
+        - displayName: The human-readable display name
+        - description: Description of the configuration type
+        Use this tool to discover available configuration types for creating run configurations.
+    """
+
+    override fun handle(args: ProjectOnly): Response {
+        val configurationTypes = ConfigurationType.CONFIGURATION_TYPE_EP.extensionList.map { configurationType ->
+            """{"id": "${configurationType.id}", "displayName": "${configurationType.displayName}", "description": "${configurationType.configurationTypeDescription ?: ""}"}"""
+        }
+        return Response(configurationTypes.joinToString(",\n", prefix = "[", postfix = "]"))
     }
 }
