@@ -1,4 +1,4 @@
-package org.jetbrains.mcpserverplugin.general
+package org.jetbrains.legacy.mcpserverplugin.general
 
 import com.intellij.openapi.application.runReadAction
 import com.intellij.openapi.command.WriteCommandAction
@@ -16,11 +16,11 @@ import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.util.application
 import kotlinx.serialization.Serializable
 import org.jetbrains.ide.RestService.Companion.getLastFocusedOrOpenedProject
-import org.jetbrains.ide.mcp.NoArgs
-import org.jetbrains.ide.mcp.ProjectAware
-import org.jetbrains.ide.mcp.Response
-import org.jetbrains.ide.mcp.getProject
-import org.jetbrains.mcpserverplugin.AbstractMcpTool
+import org.jetbrains.legacy.mcpserverplugin.NoArgs
+import org.jetbrains.legacy.mcpserverplugin.ProjectAware
+import org.jetbrains.legacy.mcpserverplugin.Response
+import org.jetbrains.legacy.mcpserverplugin.getProject
+import org.jetbrains.legacy.mcpserverplugin.AbstractMcpTool
 
 class GetCurrentFileTextTool : AbstractMcpTool<NoArgs>(NoArgs.serializer()) {
     override val name: String = "get_open_in_editor_file_text"

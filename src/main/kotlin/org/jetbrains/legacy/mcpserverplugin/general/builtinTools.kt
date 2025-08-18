@@ -1,4 +1,4 @@
-package org.jetbrains.mcpserverplugin.general
+package org.jetbrains.legacy.mcpserverplugin.general
 
 import com.intellij.execution.ExecutionException
 import com.intellij.execution.RunManager
@@ -32,12 +32,12 @@ import com.intellij.usages.FindUsagesProcessPresentation
 import com.intellij.usages.UsageViewPresentation
 import com.intellij.util.Processor
 import kotlinx.serialization.Serializable
-import org.jetbrains.ide.mcp.NoArgs
-import org.jetbrains.ide.mcp.ProjectOnly
-import org.jetbrains.ide.mcp.Response
-import org.jetbrains.mcpserverplugin.AbstractMcpTool
-import org.jetbrains.ide.mcp.ProjectAware
-import org.jetbrains.ide.mcp.getProject
+import org.jetbrains.legacy.mcpserverplugin.NoArgs
+import org.jetbrains.legacy.mcpserverplugin.ProjectOnly
+import org.jetbrains.legacy.mcpserverplugin.Response
+import org.jetbrains.legacy.mcpserverplugin.AbstractMcpTool
+import org.jetbrains.legacy.mcpserverplugin.ProjectAware
+import org.jetbrains.legacy.mcpserverplugin.getProject
 import java.nio.file.Path
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
@@ -113,7 +113,7 @@ class SearchInFilesContentTool : AbstractMcpTool<SearchInFilesArgs>(SearchInFile
     }
 }
 
-class GetRunConfigurationsTool : org.jetbrains.mcpserverplugin.AbstractMcpTool<ProjectOnly>(ProjectOnly.serializer()) {
+class GetRunConfigurationsTool : org.jetbrains.legacy.mcpserverplugin.AbstractMcpTool<ProjectOnly>(ProjectOnly.serializer()) {
     override val name: String
         get() = "get_run_configurations"
     override val description: String = """
@@ -258,7 +258,7 @@ class RunConfigurationTool : AbstractMcpTool<RunConfigArgs>(RunConfigArgs.serial
     }
 }
 
-class GetProjectModulesTool : org.jetbrains.mcpserverplugin.AbstractMcpTool<ProjectOnly>(ProjectOnly.serializer()) {
+class GetProjectModulesTool : org.jetbrains.legacy.mcpserverplugin.AbstractMcpTool<ProjectOnly>(ProjectOnly.serializer()) {
     override val name: String = "get_project_modules"
     override val description: String = """
         Get list of all modules in the project with their dependencies.
@@ -275,7 +275,7 @@ class GetProjectModulesTool : org.jetbrains.mcpserverplugin.AbstractMcpTool<Proj
     }
 }
 
-class GetProjectDependenciesTool : org.jetbrains.mcpserverplugin.AbstractMcpTool<ProjectOnly>(ProjectOnly.serializer()) {
+class GetProjectDependenciesTool : org.jetbrains.legacy.mcpserverplugin.AbstractMcpTool<ProjectOnly>(ProjectOnly.serializer()) {
     override val name: String = "get_project_dependencies"
     override val description: String = """
         Get list of all dependencies defined in the project.
@@ -297,7 +297,7 @@ class GetProjectDependenciesTool : org.jetbrains.mcpserverplugin.AbstractMcpTool
     }
 }
 
-class ListAvailableActionsTool : org.jetbrains.mcpserverplugin.AbstractMcpTool<ProjectOnly>(ProjectOnly.serializer()) {
+class ListAvailableActionsTool : org.jetbrains.legacy.mcpserverplugin.AbstractMcpTool<ProjectOnly>(ProjectOnly.serializer()) {
     override val name: String = "list_available_actions"
     override val description: String = """
         Lists all available actions in JetBrains IDE editor.
@@ -370,7 +370,7 @@ class ExecuteActionByIdTool : AbstractMcpTool<ExecuteActionArgs>(ExecuteActionAr
     }
 }
 
-class GetProgressIndicatorsTool : org.jetbrains.mcpserverplugin.AbstractMcpTool<ProjectOnly>(ProjectOnly.serializer()) {
+class GetProgressIndicatorsTool : org.jetbrains.legacy.mcpserverplugin.AbstractMcpTool<ProjectOnly>(ProjectOnly.serializer()) {
     override val name: String = "get_progress_indicators"
     override val description: String = """
         Retrieves the status of all running progress indicators in JetBrains IDE editor.
@@ -424,7 +424,7 @@ class WaitTool : AbstractMcpTool<WaitArgs>(WaitArgs.serializer()) {
     }
 }
 
-class ListProjectsTool : org.jetbrains.mcpserverplugin.AbstractMcpTool<NoArgs>(NoArgs.serializer()) {
+class ListProjectsTool : org.jetbrains.legacy.mcpserverplugin.AbstractMcpTool<NoArgs>(NoArgs.serializer()) {
     override val name: String = "list_projects"
     override val description: String = """
         Returns a list of all available projects.

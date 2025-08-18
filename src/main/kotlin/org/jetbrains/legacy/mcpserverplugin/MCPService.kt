@@ -1,4 +1,4 @@
-package org.jetbrains.ide.mcp
+package org.jetbrains.legacy.mcpserverplugin
 
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
@@ -20,15 +20,10 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.serializer
 import org.jetbrains.ide.RestService
-import org.jetbrains.mcpserverplugin.AbstractMcpTool
-import org.jetbrains.mcpserverplugin.McpTool
-import org.jetbrains.mcpserverplugin.McpToolManager
 import java.nio.charset.StandardCharsets
 import kotlin.reflect.KClass
 import kotlin.reflect.full.primaryConstructor
-import kotlin.reflect.full.starProjectedType
 
 @Service
 class MCPUsageCollector(private val scope: CoroutineScope) {

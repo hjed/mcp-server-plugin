@@ -1,4 +1,4 @@
-package org.jetbrains.mcpserverplugin.settings
+package org.jetbrains.legacy.mcpserverplugin.settings
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.options.Configurable
@@ -12,7 +12,7 @@ import javax.swing.JComponent
 class PluginSettingsConfigurable : SearchableConfigurable {
     private var settingsPanel: DialogPanel? = null
 
-    override fun getDisplayName(): String = "MCP Plugin"
+    override fun getDisplayName(): String = "MCP Plugin Legacy"
 
     override fun createComponent(): JComponent {
         val settings = ApplicationManager.getApplication().getService(PluginSettings::class.java)
@@ -63,5 +63,5 @@ class PluginSettingsConfigurable : SearchableConfigurable {
         settingsPanel = null
     }
 
-    override fun getId(): @NonNls String = "org.jetbrains.mcpserverplugin.settings"
+    override fun getId(): @NonNls String = "org.jetbrains.legacy.mcpserverplugin.settings"
 }

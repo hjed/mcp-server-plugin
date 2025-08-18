@@ -1,4 +1,4 @@
-package org.jetbrains.mcpserverplugin.general
+package org.jetbrains.legacy.mcpserverplugin.general
 
 import com.intellij.analysis.problemsView.Problem
 import com.intellij.analysis.problemsView.ProblemsCollector
@@ -15,11 +15,11 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiFile
-import org.jetbrains.ide.mcp.ProjectOnly
-import org.jetbrains.ide.mcp.Response
-import org.jetbrains.ide.mcp.getProject
-import org.jetbrains.mcpserverplugin.AbstractMcpTool
-import org.jetbrains.mcpserverplugin.JsonUtils
+import org.jetbrains.legacy.mcpserverplugin.ProjectOnly
+import org.jetbrains.legacy.mcpserverplugin.Response
+import org.jetbrains.legacy.mcpserverplugin.getProject
+import org.jetbrains.legacy.mcpserverplugin.AbstractMcpTool
+import org.jetbrains.legacy.mcpserverplugin.JsonUtils
 import java.nio.file.Path
 
 

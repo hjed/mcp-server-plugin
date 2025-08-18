@@ -1,4 +1,4 @@
-package org.jetbrains.mcpserverplugin
+package org.jetbrains.legacy.mcpserverplugin
 
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.process.OSProcessHandler
@@ -15,8 +15,8 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.ProjectActivity
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.SystemInfo
-import org.jetbrains.mcpserverplugin.notification.ClaudeConfigManager
-import org.jetbrains.mcpserverplugin.settings.PluginSettings
+import org.jetbrains.legacy.mcpserverplugin.notification.ClaudeConfigManager
+import org.jetbrains.legacy.mcpserverplugin.settings.PluginSettings
 import java.io.File
 
 internal class MCPServerStartupValidator : ProjectActivity {

@@ -1,4 +1,4 @@
-package org.jetbrains.mcpserverplugin.terminal
+package org.jetbrains.legacy.mcpserverplugin.terminal
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.NlsContexts

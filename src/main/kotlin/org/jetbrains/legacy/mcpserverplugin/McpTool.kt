@@ -1,8 +1,6 @@
-package org.jetbrains.mcpserverplugin
+package org.jetbrains.legacy.mcpserverplugin
 
-import com.intellij.openapi.project.Project
 import kotlinx.serialization.KSerializer
-import org.jetbrains.ide.mcp.Response
 import kotlin.reflect.KClass
 
 interface McpTool<Args : Any> {

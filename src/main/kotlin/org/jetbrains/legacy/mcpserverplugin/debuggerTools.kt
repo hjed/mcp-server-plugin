@@ -1,4 +1,4 @@
-package org.jetbrains.mcpserverplugin
+package org.jetbrains.legacy.mcpserverplugin
 
 import com.intellij.openapi.application.invokeLater
 import com.intellij.openapi.application.runWriteAction
@@ -10,11 +10,7 @@ import com.intellij.xdebugger.breakpoints.XLineBreakpoint
 import com.intellij.xdebugger.impl.XSourcePositionImpl
 import com.intellij.xdebugger.impl.breakpoints.XBreakpointUtil
 import kotlinx.serialization.Serializable
-import org.jetbrains.ide.mcp.ProjectAware
-import org.jetbrains.ide.mcp.ProjectOnly
-import org.jetbrains.ide.mcp.Response
-import org.jetbrains.ide.mcp.getProject
-import org.jetbrains.mcpserverplugin.general.resolveRel
+import org.jetbrains.legacy.mcpserverplugin.general.resolveRel
 
 @Serializable
 data class ToggleBreakpointArgs(val filePathInProject: String, val line: Int, override val projectName: String) :

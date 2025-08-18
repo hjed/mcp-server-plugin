@@ -1,6 +1,6 @@
 <idea-plugin>
-    <id>com.intellij.mcpServer</id>
-    <name>MCP Server</name>
+    <id>com.intellij.legacyMcpServer</id>
+    <name>Legacy MCP Server</name>
     <description><![CDATA[
     MCP (Model Context Protocol) Server for IntelliJ IDEs
     <p>
@@ -31,19 +31,19 @@
 
     <extensionPoints>
         <extensionPoint name="mcpTool"
-                        interface="org.jetbrains.mcpserverplugin.McpTool"
+                        interface="org.jetbrains.legacy.mcpserverplugin.McpTool"
                         dynamic="true"/>
     </extensionPoints>
 
     <extensions defaultExtensionNs="com.intellij">
-        <httpRequestHandler implementation="org.jetbrains.ide.mcp.MCPService"/>
+        <httpRequestHandler implementation="org.jetbrains.legacy.mcpserverplugin.MCPService"/>
         <notificationGroup id="MCPServerPlugin" displayType="BALLOON"/>
-        <postStartupActivity implementation="org.jetbrains.mcpserverplugin.MCPServerStartupValidator"/>
-        <applicationService serviceImplementation="org.jetbrains.mcpserverplugin.settings.PluginSettings"/>
+        <postStartupActivity implementation="org.jetbrains.legacy.mcpserverplugin.MCPServerStartupValidator"/>
+        <applicationService serviceImplementation="org.jetbrains.legacy.mcpserverplugin.settings.PluginSettings"/>
         <applicationConfigurable 
-            instance="org.jetbrains.mcpserverplugin.settings.PluginSettingsConfigurable"
-            id="org.jetbrains.mcpserverplugin.settings"
-            displayName="MCP Plugin"
+            instance="org.jetbrains.legacy.mcpserverplugin.settings.PluginSettingsConfigurable"
+            id="org.jetbrains.legacy.mcpserverplugin.settings"
+            displayName="MCP Plugin Legacy"
             dynamic="true"
             parentId="tools"/>
     </extensions>

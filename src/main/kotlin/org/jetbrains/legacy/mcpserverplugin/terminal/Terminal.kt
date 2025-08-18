@@ -1,4 +1,4 @@
-package org.jetbrains.mcpserverplugin.terminal
+package org.jetbrains.legacy.mcpserverplugin.terminal
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.ui.DialogWrapper
@@ -6,10 +6,10 @@ import com.intellij.ui.dsl.builder.panel
 import com.jediterm.terminal.TtyConnector
 import kotlinx.serialization.Serializable
 import org.jetbrains.ide.RestService.Companion.getLastFocusedOrOpenedProject
-import org.jetbrains.ide.mcp.NoArgs
-import org.jetbrains.ide.mcp.Response
-import org.jetbrains.mcpserverplugin.AbstractMcpTool
-import org.jetbrains.mcpserverplugin.settings.PluginSettings
+import org.jetbrains.legacy.mcpserverplugin.NoArgs
+import org.jetbrains.legacy.mcpserverplugin.Response
+import org.jetbrains.legacy.mcpserverplugin.AbstractMcpTool
+import org.jetbrains.legacy.mcpserverplugin.settings.PluginSettings
 import org.jetbrains.plugins.terminal.ShellTerminalWidget
 import org.jetbrains.plugins.terminal.TerminalUtil
 import org.jetbrains.plugins.terminal.TerminalView

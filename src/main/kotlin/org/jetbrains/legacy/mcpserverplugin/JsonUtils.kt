@@ -1,4 +1,4 @@
-package org.jetbrains.mcpserverplugin
+package org.jetbrains.legacy.mcpserverplugin
 
 object JsonUtils {
     fun escapeJson(str: String): String {

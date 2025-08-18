@@ -1,4 +1,4 @@
-package org.jetbrains.mcpserverplugin.settings
+package org.jetbrains.legacy.mcpserverplugin.settings
 
 import com.intellij.openapi.components.BaseState
 import com.intellij.openapi.components.PersistentStateComponent
@@ -7,7 +7,7 @@ import com.intellij.openapi.components.Storage
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.service
 
-@State(name = "MyPluginSettings", storages = [Storage("mcpServer.xml")])
+@State(name = "MyPluginSettings", storages = [Storage("mcpServerLegacy.xml")])
 class PluginSettings : SimplePersistentStateComponent<MyState>(MyState()){}
 
 class MyState : BaseState() {

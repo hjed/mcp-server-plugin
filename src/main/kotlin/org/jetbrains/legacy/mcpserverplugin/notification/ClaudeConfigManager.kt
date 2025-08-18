@@ -1,4 +1,4 @@
-package org.jetbrains.mcpserverplugin.notification
+package org.jetbrains.legacy.mcpserverplugin.notification
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

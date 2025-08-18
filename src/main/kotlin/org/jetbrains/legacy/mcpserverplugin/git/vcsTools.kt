@@ -1,4 +1,4 @@
-package org.jetbrains.mcpserverplugin.git
+package org.jetbrains.legacy.mcpserverplugin.git
 
 import com.intellij.openapi.project.guessProjectDir
 import com.intellij.openapi.vcs.ProjectLevelVcsManager
@@ -7,11 +7,11 @@ import com.intellij.openapi.vfs.toNioPathOrNull
 import git4idea.history.GitHistoryUtils
 import git4idea.repo.GitRepositoryManager
 import kotlinx.serialization.Serializable
-import org.jetbrains.ide.mcp.ProjectAware
-import org.jetbrains.ide.mcp.ProjectOnly
-import org.jetbrains.ide.mcp.Response
-import org.jetbrains.ide.mcp.getProject
-import org.jetbrains.mcpserverplugin.AbstractMcpTool
+import org.jetbrains.legacy.mcpserverplugin.ProjectAware
+import org.jetbrains.legacy.mcpserverplugin.ProjectOnly
+import org.jetbrains.legacy.mcpserverplugin.Response
+import org.jetbrains.legacy.mcpserverplugin.getProject
+import org.jetbrains.legacy.mcpserverplugin.AbstractMcpTool
 import kotlin.io.path.Path
 
 @Serializable
